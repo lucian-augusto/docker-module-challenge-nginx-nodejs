@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: node
+    container_name: challenge-app
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 60s docker-entrypoint.sh
+    command: node app.js
+    volumes:
+      - ./node:/usr/src/app
+    tty: true
+    networks:
+      - challenge-network
+    depends_on:
+      - db
+
+  nginx:
+    build:
+      context: ./nginx
+    container_name: challenge-nginx-server
+    networks:
+      - challenge-network
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
+
+  db:
+    platform: linux/x86_64
+    image: mysql:5.7
+    container_name: challenge-db
+    command: --innodb-use-native-aio=0
+    restart: always
+    tty: true
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=challenge_db
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - challenge-network
+
+networks:
+  challenge-network:
+    driver: bridge

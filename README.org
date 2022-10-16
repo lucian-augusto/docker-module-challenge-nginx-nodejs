@@ -1,0 +1,37 @@
+#+TITLE:Desafio Nginx com Node.js - Full Cycle 3.0
+#+AUTHOR: Lucian Augusto
+#+STARTUP: showeverything
+#+OPTIONS: date:nill toc:nil num:1
+
+* Desafio
+Nesse desafio você colocará em prática o que aprendemos em relação a utilização do nginx como proxy reverso. A idéia principal é que quando um usuário acesse o nginx, o mesmo fará uma chamada em nossa aplicação node.js. Essa aplicação por sua vez adicionará um registro em nosso banco de dados mysql, cadastrando um nome na tabela people.
+
+O retorno da aplicação node.js para o nginx deverá ser:
+
+<h1>Full Cycle Rocks!</h1>
+
+- Lista de nomes cadastrada no banco de dados.
+
+Gere o docker-compose de uma forma que basta apenas rodarmos: docker-compose up -d que tudo deverá estar funcionando e disponível na porta: 8080.
+
+* Para rodar a applicacão
+Para rodar a Aplicacão, basta rodar o comando
+#+begin_src bash
+npm install .
+#+end_src
+dentro da pasta /node/.
+
+Caso não tenha o /npm/ instalado, é possível subir o container buildando a imagem referente ao Dockerfile existente na pasta /node/.
+
+Em seguida, crie uma pasta chamada /mysql/ dentro da pasta do desafio:
+#+begin_src bash
+mkdir mysql
+#+end_src
+
+Finalmente, execute o comando para subir os containers (na raíz do projeto):
+
+#+begin_src bash
+docker-compose up -d --build
+#+end_src
+
+Aguarde alguns segundos (pode demorar um pouco para que a base seja criada devidamente na primeira vez) e então acesse a url localhost:8080.
