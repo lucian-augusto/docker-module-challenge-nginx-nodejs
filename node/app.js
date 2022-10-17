@@ -11,7 +11,7 @@ const config = {
 };
 const connection = mysql.createConnection(config);
 
-const tableCreationSqlExpression = `CREATE TABLE people(id int NOT NULL AUTO_INCREMENT, name VARCHAR(255), PRIMARY KEY (id))`;
+const tableCreationSqlExpression = `CREATE TABLE IF NOT EXISTS people(id int NOT NULL AUTO_INCREMENT, name VARCHAR(255), PRIMARY KEY (id))`;
 const nameInsertSqlExpression = "INSERT INTO people(name) values('Lucian Augusto')";
 
 connection.query(tableCreationSqlExpression);
