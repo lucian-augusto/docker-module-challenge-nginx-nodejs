@@ -9,6 +9,7 @@ services:
     command: node app.js
     volumes:
       - ./node:/usr/src/app
+      - /usr/src/app/node_modules
     tty: true
     networks:
       - challenge-network
